@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var text: String = ""
+    @FocusState private var isActive: Bool
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            CustomTextFieldWithKeyboard {
+                TextField("App Pin Code", text: $text)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 15)
+                    .frame(width: 150)
+                    .background(.fill, in: .rect(cornerRadius: 12))
+                    .focused($isActive)
+            } keyboard: {
+                CustomKeyboardView(text: $text, isActive: $isActive)
+            }
         }
-        .padding()
     }
 }
 
